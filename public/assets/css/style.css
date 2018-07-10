@@ -3,8 +3,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-attachment: fixed;
-    /* opacity: .5; */
+    height: 100%;
 }
 
 container {
@@ -14,4 +13,12 @@ container {
 * {
     font-family: 'Unica One', cursive;
 
+}
+
+th {
+    font-size: 25px;
+}
+
+td {
+    font-size: 20px;
 }
