@@ -1,0 +1,17 @@
+body {
+    background-image: url(../../../Images/14854271976_516170b23f_o.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    /* opacity: .5; */
+}
+
+container {
+    opacity: .5;
+}
+
+* {
+    font-family: 'Unica One', cursive;
+
+}
