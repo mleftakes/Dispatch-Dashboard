@@ -1,14 +1,17 @@
-// Customer model
+// driver model
 
-// The Customer has a "customer" attribute of type DataTypes.String
+// The driver has a "driver" attribute of type DataTypes.String
 
 module.exports = function(sequelize, DataTypes) {
-  var Customer = sequelize.define("Customer", {
-    customer: {
+  var driver = sequelize.define("driver", {
+    driver: {
       type: DataTypes.STRING,
-      // If a customer is to be created, they must have a name
+      // If a driver is to be created, they must have a name
       allowNull: false
+    },
+    Image: {
+      type: DataTypes.STRING,
     }
   });
-  return Customer;
+  return driver;
 };
