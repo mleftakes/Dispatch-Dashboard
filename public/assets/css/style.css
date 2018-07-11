@@ -1,18 +1,29 @@
-body {
+html {
     background-image: url(../../../Images/14854271976_516170b23f_o.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
+    /* opacity: .5; */
+
+   
 }
 
-container {
-    opacity: .5;
+img {
+    opacity: .3;
+}
+
+h1 {
+    font-size: 100px;
+}
+
+h2 {
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 * {
     font-family: 'Unica One', cursive;
-
 }
 
 th {
@@ -21,4 +32,4 @@ th {
 
 td {
     font-size: 20px;
-}
+}   
