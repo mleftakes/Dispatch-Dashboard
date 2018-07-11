@@ -14,9 +14,7 @@ module.exports = (app) => {
     const prefix = 'data:image/png;base64,';
 
     if (!uri.startsWith(prefix)) {
-      console.log(req.body);
-      console.log(prefix);
-      res.json({ error: Error('Invalid URI! Must be a Base64-encoded PNG file') });
+      res.json({ error: 'Invalid URI! Must be a Base64-encoded PNG file' });
       return;
     }
 
@@ -27,7 +25,7 @@ module.exports = (app) => {
 
     fs.writeFile(filePath, buf, (err) => {
       if (err) {
-        res.json( { error: err });
+        res.json({ error: err });
         return;
       }
 
