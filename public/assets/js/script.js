@@ -1,17 +1,18 @@
 $(document).ready(function() {
 
-  $(".devour-form").on("submit", function(event) {
+  $(".driver-form").on("submit", function(event) {
     event.preventDefault();
 
-    var burgerInfo = {
-      burger_id: $(this).children(".burger_id").val(),
-      customer: $(this).children(".custom-input").val()
+    var driverInfo = {
+      driver: $(this).children(".driver").val(),
+      checkIn: $(this).children(".check-in").val(),
+      checkOut: $(this).children(".check-out").val()
     };
 
     $.ajax({
       method: "PUT",
-      url: "/burgers/update",
-      data: burgerInfo
+      url: "/driver/inputdata",
+      data: driverInfo
     }).then(function(data) {
       // reload page to display devoured burger in proper column
       location.reload();

@@ -12,8 +12,9 @@ CREATE TABLE Drivers (
 CREATE TABLE Dispatches (
   id INTEGER AUTO_INCREMENT NOT NULL,
   driver INTEGER NOT NULL,
-  checkin DATE NOT NULL,
-  checkout DATE,
+  is_shipper BOOLEAN NOT NULL,
+  checkin DATETIME NOT NULL,
+  checkout DATETIME,
   bol_image VARCHAR(255),
   PRIMARY KEY(id)
 );
