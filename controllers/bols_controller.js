@@ -1,9 +1,8 @@
 /* eslint-env node, es6 */
 
-const bodyParser = require('body-parser');
+const fs = require('fs');
 const path = require('path');
-
-const images = require('../models/bols.js');
+const nanoid = require('nanoid');
 
 module.exports = (app) => {
   app.get('/cameratest', (req, res) => {
@@ -11,8 +10,28 @@ module.exports = (app) => {
   });
 
   app.post('/add-image', (req, res) => {
-    images(req.body.uri)
-      .then(imageName => res.json({ imageName }))
-      .catch(error => res.json({ error }));
+    const uri = req.body.uri;
+    const prefix = 'data:image/png;base64,';
+
+    if (!uri.startsWith(prefix)) {
+      console.log(req.body);
+      console.log(prefix);
+      res.json({ error: Error('Invalid URI! Must be a Base64-encoded PNG file') });
+      return;
+    }
+
+    const buf = Buffer.from(uri.slice(prefix.length), 'base64');
+
+    const fileName = `${nanoid()}.png`;
+    const filePath = path.join(__dirname, `../bols/${fileName}`);
+
+    fs.writeFile(filePath, buf, (err) => {
+      if (err) {
+        res.json( { error: err });
+        return;
+      }
+
+      res.json( { fileName: fileName });
+    });
   });
 };
