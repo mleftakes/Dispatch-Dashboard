@@ -38,8 +38,8 @@
           
           const context = canvas.getContext('2d');
 
-          canvas.width = width;
-          canvas.height = height;
+          canvas.width = video.width;
+          canvas.height = video.height;
           context.drawImage(video, 0, 0, width, height);
 
           const data = canvas.toDataURL('image/png');
@@ -50,9 +50,15 @@
             url: '/add-image',
             data: { uri: data },
             success: (response) => {
+              if (response.error) {
+                console.log('Error');
+                console.error(response.error);
+                return;
+              }
+
               console.log('success');
               console.log(response);
-              $('#filename').text(`Filename is ${response.imageName}`);
+              $('#filename').text(`Filename is ${response.fileName}`);
             },
             error: (error) => {
               console.log('error');
