@@ -1,24 +1,22 @@
-// Burger models
 
-// The burger has a burger_name attribute of type DataTypes.String
-// and a devoured attribute that is false by default
 
 module.exports = function(sequelize, DataTypes) {
-  var Burger = sequelize.define("Burger", {
-    burger_name: {
+  var Dispatch = sequelize.define("Dispatch", {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    devoured: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    }
-  }, {
-    classMethods: {
-      associate: function(models) {
-        Burger.hasOne(models.Customer);
-      }
+    Checkin: {
+      type: Date,
+      allowNull: false
+    },
+    Checkout:{
+      type: Date,
+      allowNull: true
+    },
+    image:{
+      type: DataTypes.STRING,
     }
   });
-  return Burger;
+  return Dispatch;
 };
