@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/mleftakes/Dispatch-Dashboard#readme",
   "dependencies": {
-    "materialize-css": "^1.0.0-rc.2"
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "materialize-css": "^1.0.0-rc.2",
+    "mysql2": "^1.5.3",
+    "nanoid": "^1.0.7",
+    "sequelize": "^4.38.0"
   }
 }
