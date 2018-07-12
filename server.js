@@ -21,7 +21,8 @@ app.use(express.static("public"));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
-  extended: false
+  extended: false,
+  limit: '50mb'
 }));
 
 var exphbs = require("express-handlebars");
@@ -37,8 +38,8 @@ app.use(routes);
 
 // listen on port 3000
 var PORT = process.env.PORT || 3000;
-db.sequelize.sync().then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
+// db.sequelize.sync().then(function() {
+app.listen(PORT, function() {
+  console.log("App listening on PORT " + PORT);
 });
+// });

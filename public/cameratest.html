@@ -6,6 +6,7 @@
   </head>
   <body>
     <button id="picture-button">Take Picture</button>
+    <h1 id="filename">&nbsp;</h1>
     <img id="picture" />
     <video id="video"></video>
     <script>
@@ -37,12 +38,33 @@
           
           const context = canvas.getContext('2d');
 
-          canvas.width = width;
-          canvas.height = height;
+          canvas.width = video.width;
+          canvas.height = video.height;
           context.drawImage(video, 0, 0, width, height);
 
           const data = canvas.toDataURL('image/png');
           $('#picture').attr('src', data);
+
+          $.ajax({
+            method: 'POST',
+            url: '/add-image',
+            data: { uri: data },
+            success: (response) => {
+              if (response.error) {
+                console.log('Error');
+                console.error(response.error);
+                return;
+              }
+
+              console.log('success');
+              console.log(response);
+              $('#filename').text(`Filename is ${response.fileName}`);
+            },
+            error: (error) => {
+              console.log('error');
+              console.error(error);
+            }
+          });
         });
       });
     </script>
