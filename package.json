@@ -24,5 +24,6 @@
     "mysql2": "^1.5.3",
     "nanoid": "^1.0.7",
     "sequelize": "^4.38.0"
-  }
+  },
+  "devDependencies": {}
 }
