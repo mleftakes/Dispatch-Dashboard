@@ -36,6 +36,9 @@ var routes = require("./controllers/dashboard_controller");
 
 app.use(routes);
 
+require('./controllers/routes.js')(app);
+require('./controllers/bols_controller.js')(app);
+
 // listen on port 3000
 var PORT = process.env.PORT || 3000;
 // db.sequelize.sync().then(function() {
