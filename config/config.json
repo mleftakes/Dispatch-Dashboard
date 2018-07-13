@@ -1,11 +1,7 @@
 {
   "development": {
     "username": "root",
-<<<<<<< HEAD
-    "password": "sexycheese",
-=======
-    "password": "",
->>>>>>> 9859b90a0eb8a626f65cd9ad45c051460de0a253
+    "password": "hello",
     "database": "dispatch_dashboard",
     "host": "127.0.0.1",
     "dialect": "mysql"

@@ -54,4 +54,4 @@ function takePicture(video, callback) {
       callback(null, error);
     }
   });
-});
+};

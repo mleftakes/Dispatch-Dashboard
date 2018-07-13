@@ -1,5 +1,6 @@
 <!DOCTYPE <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +14,7 @@
   <link href="https://fonts.googleapis.com/css?family=Unica+One" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
+  <script src="../public/assets/js/camera.js"></script>
 </head>
 
 <body>
@@ -50,6 +52,8 @@
         </p>
       </div>
 
+
+
       <div class="divider"></div>
       <div class="center-align section">
         <h2 class="Center-align col s12"> "current time"</h2>
@@ -63,7 +67,29 @@
         $(document).ready(function () {
           // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
           $('.modal-trigger').leanModal();
+
+          startVideo($('#camera')[0], function (err) {
+            if (err) {
+              console.error(err);
+            }
+          });
+
+          $("#takePictureBtn").on("click", function (event) {
+            event.preventDefault();
+
+            takePicture($('#camera')[0], function (filename, err) {
+              
+              if (err) {
+                console.error(err);
+                return;
+              }
+
+              console.log(filename);
+            });
+          });
         });
+
+
 
       </script>
 
@@ -73,17 +99,17 @@
         <p id="col s12">
           <a class="waves-effect waves-light btn-large modal-trigger" href="#modal1">TAKE PICTURE</a>
 
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal">
-      <div class="modal-content">
-        <h4>Add an Image</h4>
-  
-        <div class="row">
-          <form class="col s12">
-            <div class="row modal-form-row">
-              <div class="input-field col s12">
-                <input id="image_url" type="text" class="validate">
-                <label for="image_url">Image URL</label>
+          <!-- Modal Structure -->
+          <div id="modal1" class="modal">
+            <div class="modal-content">
+              <video id="camera"></video>
+
+              <div class="row">
+                <form class="col s12">
+                  <div class="row modal-form-row">
+                    <div class="input-field col s12">
+                      <input id="image_url" type="text" class="validate">
+                      <!-- <label for="image_url">Image URL</label>
               </div>
             </div>
             <div class="row">
@@ -91,37 +117,38 @@
                 <input id="image_title" type="text" class="validate">
                 <label for="image_title">Title</label>
               </div>
-            </div>       
-            <div class="row">
+            </div>        -->
+                      <!-- <div class="row">
               <div class="input-field col s12">
                 <textarea id="image_description" type="text" class="materialize-textarea validate"></textarea>
                 <label for="image_description">Description</label>
               </div>
             </div>             
-          </form>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <a class=" modal-action waves-effect waves-green btn-flat">Take Picture</a>
-        <a class=" modal-action modal-close waves-effect waves-green btn-flat">Submit</a>
-      </div>
-    </div>
-  
-    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-  </body>
+          </form> -->
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <a class=" modal-action waves-effect waves-green btn-flat" id="takePictureBtn">Take Picture</a>
+                    <a class=" modal-action modal-close waves-effect waves-green btn-flat">Submit</a>
+                  </div>
+              </div>
 
-        </p>
-
-
-      </div>
-
-
-
-
-
-
-
-    </div>
+              <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
+              <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 </body>
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+</body>
+
 </html>
