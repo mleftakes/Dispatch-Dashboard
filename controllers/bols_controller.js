@@ -14,20 +14,25 @@ module.exports = (app) => {
     const prefix = 'data:image/png;base64,';
 
     if (!uri.startsWith(prefix)) {
-      console.log(req.body);
-      console.log(prefix);
-      res.json({ error: Error('Invalid URI! Must be a Base64-encoded PNG file') });
+      res.json({ error: 'Invalid URI! Must be a Base64-encoded PNG file' });
       return;
     }
 
     const buf = Buffer.from(uri.slice(prefix.length), 'base64');
 
     const fileName = `${nanoid()}.png`;
-    const filePath = path.join(__dirname, `../bols/${fileName}`);
+
+    const bolsPath = path.join(__dirname, '../bols');
+
+    if (!fs.existsSync(bolsPath)) {
+      fs.mkdirSync(bolsPath);
+    }
+
+    const filePath = path.join(bolsPath, fileName);
 
     fs.writeFile(filePath, buf, (err) => {
       if (err) {
-        res.json( { error: err });
+        res.json({ error: err });
         return;
       }
 
