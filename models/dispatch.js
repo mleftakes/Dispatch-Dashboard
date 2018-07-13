@@ -5,19 +5,23 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Dispatch = sequelize.define("Dispatch", {
-    name: {
-      type: DataTypes.STRING,
+    driver: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    Checkin: {
-      type: Date,
+    checkin: {
+      type: DataTypes.DATE,
       allowNull: false
     },
-    Checkout:{
-      type: Date,
+    checkout:{
+      type: DataTypes.DATE,
       allowNull: true
     },
-    image:{
+    is_shipper: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    bol_image:{
       type: DataTypes.STRING,
     }
   });
