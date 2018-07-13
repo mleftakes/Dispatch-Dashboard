@@ -4,7 +4,10 @@
     "password": "hello",
     "database": "dispatch_dashboard",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "define": {
+      "timestamps": false
+    }
   },
   "production": {
     "use_env_variable": "JAWSDB_URL",

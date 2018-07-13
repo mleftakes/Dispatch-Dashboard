@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
       // If a driver is to be created, they must have a name
       allowNull: false
     },
-    Image: {
+    image: {
       type: DataTypes.STRING,
     }
   });
