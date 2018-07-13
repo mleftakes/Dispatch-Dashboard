@@ -15,7 +15,7 @@ router.get("/", function(req, res) {
 router.get("/Dispatch", function(req, res) {
   // replace old function with sequelize function
   db.Dispatch.findAll({
-        // Here we specify we want to return our burgers in ordered by ascending burger_name
+    // Here we specify we want to return our burgers in ordered by ascending burger_name
     order: [
       ["Checkin", "ASC"]
     ]

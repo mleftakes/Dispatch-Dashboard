@@ -1,4 +1,7 @@
+// Dispatch models
 
+// The Dispatch has a name attribute of type DataTypes.String
+// Checkin and Checkout are type date
 
 module.exports = function(sequelize, DataTypes) {
   var Dispatch = sequelize.define("Dispatch", {
