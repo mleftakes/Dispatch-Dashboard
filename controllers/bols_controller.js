@@ -21,7 +21,14 @@ module.exports = (app) => {
     const buf = Buffer.from(uri.slice(prefix.length), 'base64');
 
     const fileName = `${nanoid()}.png`;
-    const filePath = path.join(__dirname, `../bols/${fileName}`);
+
+    const bolsPath = path.join(__dirname, '../bols');
+
+    if (!fs.existsSync(bolsPath)) {
+      fs.mkdirSync(bolsPath);
+    }
+
+    const filePath = path.join(bolsPath, fileName);
 
     fs.writeFile(filePath, buf, (err) => {
       if (err) {
