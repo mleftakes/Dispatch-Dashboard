@@ -13,6 +13,10 @@ module.exports = (app) => {
     res.sendFile(path.join(__dirname, '../public/trucker.html'));
   });
 
+  app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/dispatcher.html'));
+  });
+
   app.get('/style.css', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/assets/css/style.css'));
   });
