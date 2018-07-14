@@ -82,7 +82,7 @@
           // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
           $('.modal-trigger').leanModal();
 
-          startVideo($('#camera')[0], function (err) {
+          startVideo($('#camera')[0], false, function (err) {
             if (err) {
               console.error(err);
             }
@@ -91,7 +91,7 @@
           $("#takePictureBtn").on("click", function (event) {
             event.preventDefault();
 
-            takePicture($('#camera')[0], function (filename, err) {
+            takePicture($('#camera')[0], 'add-bol', function (filename, err) {
 
               if (err) {
                 console.error(err);
