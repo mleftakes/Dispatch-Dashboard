@@ -5,25 +5,27 @@
 // Callback has one parameter "err" which is null if successful
 function startVideo(video, callback) {
   navigator.mediaDevices.getUserMedia({ audio: false, video: { width: 9999, height: 9999, facingMode: 'environment' } })
-  .then((stream) => {
-    video.srcObject = stream;
+    .then((stream) => {
+      video.srcObject = stream;
 
-    $(video).attr('autoplay', true);
-    $(video).attr('muted', true);
-    $(video).attr('playsinline', true);
+      $(video).attr('autoplay', true);
+      $(video).attr('muted', true);
+      $(video).attr('playsinline', true);
 
-    video.play();
+      video.play();
 
-    callback(null);
-  })
-  .catch((err) => {
-    callback(err);
-  });
+      callback(null);
+    })
+    .catch((err) => {
+      callback(err);
+    });
 }
 
-// Pass <video> element which should be currently running
+// Pass <video> element which should be currently running,
+// as well as the name of the POST route we should send to.
+// (add-bol or add-user-image)
 // Callback takes two parameters; first is filename, second is error
-function takePicture(video, callback) {
+function takePicture(video, routeName, callback) {
   const canvas = $("<canvas>")[0];
   const context = canvas.getContext('2d');
 
@@ -36,7 +38,7 @@ function takePicture(video, callback) {
 
   $.ajax({
     method: 'POST',
-    url: '/add-image',
+    url: `/${routeName}`,
     data: { uri: data },
     success: (response) => {
       if (response.error) {
@@ -54,4 +56,4 @@ function takePicture(video, callback) {
       callback(null, error);
     }
   });
-};
+}
