@@ -19,6 +19,18 @@ router.get("/dispatch", function(req, res) {
     });
 });
 
+
+router.get("/truckers", function(req, res) {
+  // replace old function with sequelize function
+  db.driver.findAll({
+    attributes: ['id','name','bol_image']
+    // Here we specify we want to return our burgers in ordered by ascending burger_name
+  })
+    .then(function(truckers) {
+      res.json(truckers);
+    });
+});
+
 // post route to create burgers
 router.post("/dispatch/checkin", function(req, res) {
   // edited burger create to add in a burger_name
