@@ -5,12 +5,6 @@ var router = express.Router();
 // grabbing our models
 var db = require("../models");
 
-// get route -> index
-router.get("/", function(req, res) {
-  // send us to the next get function instead.
-  res.redirect("/dispatch");
-});
-
 // get route, edited to match sequelize
 router.get("/dispatch", function(req, res) {
   // replace old function with sequelize function
@@ -20,9 +14,9 @@ router.get("/dispatch", function(req, res) {
       ["checkin", "DESC"]
     ]
   })
-  .then(function(dispatches) {
-    res.json(dispatches);
-  });
+    .then(function(dispatches) {
+      res.json(dispatches);
+    });
 });
 
 // post route to create burgers
@@ -68,12 +62,12 @@ router.put('/dispatch/checkout', function(req, res) {
       id: id
     }
   })
-  .then(function() {
-    res.json('/');
-  })
-  .catch(function(err) {
+    .then(function() {
+      res.json('/');
+    })
+    .catch(function(err) {
 
-  });
+    });
 });
 
 module.exports = router;
