@@ -2,9 +2,12 @@
 /* global navigator */
 
 // Pass <video> element to start video
+// Second parameter is a boolean. If this is true we will use the selfie camera,
+//   otherwise we will use the back camera.
 // Callback has one parameter "err" which is null if successful
-function startVideo(video, callback) {
-  navigator.mediaDevices.getUserMedia({ audio: false, video: { width: 9999, height: 9999, facingMode: 'environment' } })
+function startVideo(video, useFront, callback) {
+  const facingMode = useFront ? 'user' : 'environment';
+  navigator.mediaDevices.getUserMedia({ audio: false, video: { width: 9999, height: 9999, facingMode: facingMode } })
     .then((stream) => {
       video.srcObject = stream;
 
@@ -21,9 +24,10 @@ function startVideo(video, callback) {
     });
 }
 
-// Pass <video> element which should be currently running,
-// as well as the name of the POST route we should send to.
-// (add-bol or add-user-image)
+// Parameters:
+// video: <video> element to use. This should be currently running.
+// routeName: the name of the POST route to which to send the image.
+//   should be (add-bol or add-user-image)
 // Callback takes two parameters; first is filename, second is error
 function takePicture(video, routeName, callback) {
   const canvas = $("<canvas>")[0];
