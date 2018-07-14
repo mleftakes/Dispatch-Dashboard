@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
-  var driver = sequelize.define("driver", {
-    driver: {
+  var Driver = sequelize.define("Driver", {
+    name: {
       type: DataTypes.STRING,
       // If a driver is to be created, they must have a name
       allowNull: false
@@ -9,5 +9,5 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
     }
   });
-  return driver;
+  return Driver;
 };

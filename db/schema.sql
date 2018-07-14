@@ -5,7 +5,7 @@ USE dispatch_dashboard;
 CREATE TABLE Drivers (
   id INTEGER AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL,
-  bol_image VARCHAR(255),
+  image VARCHAR(255),
   PRIMARY KEY(id)
 );
 
