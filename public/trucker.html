@@ -17,10 +17,14 @@
   <script src="/camera.js"></script>
   <script src="https://momentjs.com/downloads/moment.min.js"></script>
   <script src="/moment.js"></script>
+  <script src="/script.js"></script>
 </head>
+
 
 <body>
   <div class="container">
+
+
     <h1 class="Center-align col s12"> Welcome Truckers </h1>
     <div class="divider"></div>
 
@@ -47,11 +51,19 @@
       </div>
 
 
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+
       <div class="center-align section">
         <!-- <div id="clock" class="clock">loading ...</div> -->
         <h2 class="clock Center-align col s12">loading...</h2>
-        <p id="checkIn Center-align col s12">
-          <a id="checkIn" class="center-align waves-effect waves-light btn-large">CHECK IN</a>
+        <p class="Center-align col s12">
+          <a id="checkIn" class="center-align waves-effect waves-light btn-large" href="">CHECK IN</a>
         </p>
       </div>
 
@@ -61,7 +73,7 @@
       <div class="center-align section">
         <h2 class="clock Center-align col s12">loading...</h2>
         <p id="center-align col s12">
-          <a class="center-align waves-effect waves-light btn-large">CHECK OUT</a>
+          <a type="submit" id="checkOut"class="center-align waves-effect waves-light btn-large">CHECK OUT</a>
         </p>
       </div>
 
@@ -81,7 +93,7 @@
             event.preventDefault();
 
             takePicture($('#camera')[0], 'add-bol', function (filename, err) {
-              
+
               if (err) {
                 console.error(err);
                 return;
@@ -151,4 +163,5 @@
 
 </div>
 </body>
+
 </html>

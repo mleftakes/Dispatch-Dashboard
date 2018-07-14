@@ -1,25 +1,51 @@
 $(document).ready(function() {
-
-  $(".driver-form").on("submit", function(event) {
+  $("#checkIn").click(function(event) {
     event.preventDefault();
+    
+    var path = window.location.pathname;
+    var prefix = "/checkin/";
 
-    var driverInfo = {
-      driver: $(this).children(".driver").val(),
-      checkIn: $(this).children(".check-in").val(),
-      checkOut: $(this).children(".check-out").val()
-    };
+    if (!path.startsWith(prefix)) {
+      console.log("Invalid path");
+      return;
+    }
+
+    var id = path.slice(prefix.length);
+    
+    $.ajax({
+      method: "POST",
+      url: "/api/checkin",
+      data: {
+        driver_id: id,
+        is_shipper: true
+      }
+    }).then(function(data) {
+      console.log(data);
+    }).catch(function(err) {
+      console.log('something went wrong: ', err);
+    });
+
+  });
+
+  
+$("#checkOut").on("submit", function(event) {
+    event.preventDefault();
 
     $.ajax({
       method: "PUT",
-      url: "/driver/inputdata",
-      data: driverInfo
+      url: "/api/checkout",
+      data: {
+        driver_id: (window.location.href).split("/")[3],
+      }
     }).then(function(data) {
+      // reload page to display devoured burger in proper column
       location.reload();
     });
 
   });
-});
 
+
+});
 
 
 
