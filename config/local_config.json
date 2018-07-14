@@ -1,0 +1,10 @@
+{
+  "username": "root",
+  "password": "SammySquirrel",
+  "database": "dispatch_dashboard",
+  "host": "127.0.0.1",
+  "dialect": "mysql",
+  "define": {
+    "timestamps": false
+  }
+}
