@@ -19,8 +19,8 @@
   <script src="/moment.js"></script>
 </head>
 
-
-<h2 class="Center-align col s12"> CHOOSE YOUR ID </h2>
+<body>
+<h1 class="Center-align col s12"> CHOOSE YOUR ID </h1>
 <table class="centered highlight">
   <thead>
     <tr>
@@ -29,23 +29,38 @@
     </tr>
   </thead>
 
-  <tbody>
-    <tr>
-      <td>DATA</td>
+  <tbody id="truckers-tbody">
+  </tbody>
+</table>
+<script>
+  $(document).ready(() => {
+    $.ajax({
+      method: 'GET',
+      url: '/api/truckers',
+      success: (data) => {
+        const tbody = $('#truckers-tbody');
 
-    </tr>
-    <tr>
-      <td>DATA</td>
+        $.each(data, (_, eachTrucker) => {
+          const name = eachTrucker.name;
 
-    </tr>
+          const td = $('<td>').text(name).attr('trucker-id', eachTrucker.id);
+          tbody.append($('<tr>').append(td));
 
+          td.click(chooseTrucker);
+        });
+      },
+      error: (err) => {
+        console.log('something went wrong: ', err);
+      }
+    })
+  });
 
-            </tbody>
-          </table>
-                
+  function chooseTrucker(event) {
+    event.preventDefault();
 
+    const id = $(this).attr('trucker-id');
 
-
-
-
-
+    window.location.replace(`/checkin/${id}`);
+  }
+</script>
+</body>
