@@ -11,6 +11,9 @@ router.get("/api/dispatch", function(req, res) {
   db.Dispatch.findAll({
     order: [
       ["checkin", "DESC"]
+    ],
+    include: [
+      db.Driver
     ]
   })
     .then(function(dispatches) {
@@ -20,7 +23,7 @@ router.get("/api/dispatch", function(req, res) {
 
 router.get("/api/truckers", function(req, res) {
   // replace old function with sequelize function
-  db.driver.findAll({
+  db.Driver.findAll({
     attributes: ['id','name','bol_image']
     // Here we specify we want to return our burgers in ordered by ascending burger_name
   })
@@ -63,7 +66,7 @@ router.put('/api/checkout', function(req, res) {
 });
 
 router.post("/api/create-driver", function(req, res) {
-  db.driver.create({
+  db.Driver.create({
     driver: req.body.name,
     image: req.body.image
   })

@@ -5,7 +5,7 @@ INSERT INTO Drivers (name) VALUES
   ("Jane Doe")
 ;
 
-INSERT INTO Dispatches (driver, checkin, checkout, bol_image) VALUES
-  (1, NOW(), NULL, NULL),
-  (2, NOW(), NOW(), "2_bol.png")
-;
+INSERT INTO dispatches (driver,is_shipper, checkin, checkout) 
+VALUES
+ (1, true, NOW(), NOW()),
+ (2, false, NOW(), NOW());

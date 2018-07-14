@@ -5,10 +5,6 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Dispatch = sequelize.define("Dispatch", {
-    driver: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
     checkin: {
       type: DataTypes.DATE,
       allowNull: false
@@ -25,5 +21,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
     }
   });
+
+  Dispatch.associate = function(db) {
+    db.Driver.hasMany(db.Dispatch, { foreignKey: 'driver' });
+    db.Dispatch.belongsTo(db.Driver, { foreignKey: 'driver' });
+  };
+
   return Dispatch;
 };

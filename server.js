@@ -21,11 +21,11 @@ app.engine("handlebars", exphbs({
 }));
 app.set("view engine", "handlebars");
 
-var routes = require("./controllers/dashboard_controller");
+var routes = require("./controllers/api_routes");
 
 app.use(routes);
 
-require('./controllers/routes.js')(app);
+require('./controllers/frontend_routes.js')(app);
 require('./controllers/images_controller.js')(app);
 
 // listen on port 3000
