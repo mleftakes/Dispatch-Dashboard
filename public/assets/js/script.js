@@ -14,7 +14,6 @@ $(document).ready(function() {
       url: "/driver/inputdata",
       data: driverInfo
     }).then(function(data) {
-      // reload page to display devoured burger in proper column
       location.reload();
     });
 

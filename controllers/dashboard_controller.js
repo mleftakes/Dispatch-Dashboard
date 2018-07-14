@@ -9,7 +9,6 @@ var db = require("../models");
 router.get("/dispatch", function(req, res) {
   // replace old function with sequelize function
   db.Dispatch.findAll({
-    // Here we specify we want to return our burgers in ordered by ascending burger_name
     order: [
       ["checkin", "DESC"]
     ]
@@ -18,7 +17,6 @@ router.get("/dispatch", function(req, res) {
       res.json(dispatches);
     });
 });
-
 
 router.get("/truckers", function(req, res) {
   // replace old function with sequelize function
@@ -31,9 +29,7 @@ router.get("/truckers", function(req, res) {
     });
 });
 
-// post route to create burgers
 router.post("/dispatch/checkin", function(req, res) {
-  // edited burger create to add in a burger_name
   db.Dispatch.create({
     driver: req.body.driver_id,
     is_shipper: req.body.is_shipper,
@@ -48,9 +44,7 @@ router.post("/dispatch/checkin", function(req, res) {
     });
 });
 
-
 router.post("/drivers/create", function(req, res) {
-  // edited burger create to add in a burger_name
   db.driver.create({
     driver: req.body.name,
     image: req.body.image
