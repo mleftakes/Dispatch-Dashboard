@@ -2,3 +2,5 @@
 node_modules
 bols
 config/local_config.json
+public/assets/images/bols
+public/assets/images/user-images
