@@ -24,6 +24,11 @@ function startVideo(video, useFront, callback) { // eslint-disable-line no-unuse
     });
 }
 
+function stopVideo(video) { // eslint-disable-line no-unused-vars
+  video.pause();
+  video.srcObject.getTracks().forEach(each => each.stop());
+}
+
 // Parameters:
 // video: <video> element to use. This should be currently running.
 // routeName: the name of the POST route to which to send the image.
@@ -38,7 +43,7 @@ function takePicture(video, routeName, callback) { // eslint-disable-line no-unu
   context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
 
   const data = canvas.toDataURL('image/png');
-  video.pause();
+  stopVideo(video);
 
   $.ajax({
     method: 'POST',

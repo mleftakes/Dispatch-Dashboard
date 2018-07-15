@@ -1,4 +1,5 @@
 /* eslint-env browser, jquery */
+/* global startVideo, stopVideo, takePicture */
 
 $(document).ready(() => {
   $('#checkIn').click((event) => {
@@ -28,7 +29,6 @@ $(document).ready(() => {
     });
   });
 
-
   $('#checkOut').on('submit', (event) => {
     event.preventDefault();
 
@@ -39,8 +39,34 @@ $(document).ready(() => {
         driver_id: (window.location.href).split('/')[3],
       },
     }).then((data) => {
-      // reload page to display devoured burger in proper column
-      location.reload();
+      window.location.reload();
+    });
+  });
+
+  $('.modal-trigger').leanModal({
+    dismissable: true,
+    ready: () => {
+      startVideo($('#camera')[0], false, (err) => {
+        if (err) {
+          console.error(err); // eslint-disable-line no-console
+        }
+      });
+    },
+    complete: () => {
+      stopVideo($('#camera')[0]);
+    },
+  });
+
+  $('#takePictureBtn').on('click', (event) => {
+    event.preventDefault();
+
+    takePicture($('#camera')[0], 'add-bol', (filename, err) => {
+      if (err) {
+        console.error(err); // eslint-disable-line no-console
+        return;
+      }
+
+      console.log(filename);
     });
   });
 });

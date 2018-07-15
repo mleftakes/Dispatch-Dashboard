@@ -77,35 +77,6 @@
         </p>
       </div>
 
-
-      <script> 
-        $(document).ready(function () {
-          // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-          $('.modal-trigger').leanModal();
-
-          startVideo($('#camera')[0], false, function (err) {
-            if (err) {
-              console.error(err);
-            }
-          });
-
-          $("#takePictureBtn").on("click", function (event) {
-            event.preventDefault();
-
-            takePicture($('#camera')[0], 'add-bol', function (filename, err) {
-
-              if (err) {
-                console.error(err);
-                return;
-              }
-
-              console.log(filename);
-            });
-          });
-        });
-
-      </script>
-
       <div class="divider"></div>
       <div class="center-align section">
         <h2 class="Center-align col s12">BOL Picture</h2>
