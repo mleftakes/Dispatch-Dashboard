@@ -1,82 +1,75 @@
+const db = require('../models');
+const socketIO = require('socket.io');
 
-var express = require("express");
+let io;
 
-var router = express.Router();
-// grabbing our models
-var db = require("../models");
+function notifyDispatchChanged(id) {
+  io.emit('dispatchChanged', id);
+}
 
-// get route, edited to match sequelize
-router.get("/api/dispatch", function(req, res) {
-  // replace old function with sequelize function
-  db.Dispatch.findAll({
-    order: [
-      ["checkin", "DESC"]
-    ],
-    include: [
-      db.Driver
-    ]
-  })
-    .then(function(dispatches) {
+module.exports = (app, http) => {
+  io = socketIO(http);
+
+  // get route, edited to match sequelize
+  app.get('/api/dispatch', (req, res) => {
+    // replace old function with sequelize function
+    db.Dispatch.findAll({
+      order: [
+        ['checkin', 'DESC'],
+      ],
+      include: [
+        db.Driver,
+      ],
+    }).then((dispatches) => {
       res.json(dispatches);
     });
-});
+  });
 
-router.get("/api/truckers", function(req, res) {
-  // replace old function with sequelize function
-  db.Driver.findAll({
-    attributes: ['id','name','bol_image']
-    // Here we specify we want to return our burgers in ordered by ascending burger_name
-  })
-    .then(function(truckers) {
+  app.get('/api/truckers', (req, res) => {
+    // replace old function with sequelize function
+    db.Driver.findAll({
+      attributes: ['id', 'name', 'image'],
+      order: [
+        ['name', 'ASC'],
+      ],
+    }).then((truckers) => {
       res.json(truckers);
     });
-});
+  });
 
-router.post("/api/checkin", function(req, res) {
-  db.Dispatch.create({
-    driver: req.body.driver_id,
-    is_shipper: req.body.is_shipper,
-    checkin: db.sequelize.fn('NOW')
-  })
-  // pass the result of our call
-    .then(function(data) {
-    // log the result to our terminal/bash window
-      console.log(data);
-      // redirect
+  app.post('/api/checkin', (req, res) => {
+    db.Dispatch.create({
+      driver: req.body.driver_id,
+      is_shipper: req.body.is_shipper,
+      checkin: db.sequelize.fn('NOW'),
+    }).then((data) => {
       res.json(data.id);
+      notifyDispatchChanged(data.id);
     });
-});
+  });
 
-router.put('/api/checkout', function(req, res) {
-  var id = req.body.dispatch_id;
+  app.put('/api/checkout', (req, res) => {
+    const id = req.body.dispatch_id;
 
-  db.Dispatch.update({
-    checkout: db.sequelize.fn('NOW')
-  }, {
-    where: {
-      id: id
-    }
-  })
-    .then(function() {
+    db.Dispatch.update({
+      checkout: db.sequelize.fn('NOW'),
+    }, {
+      where: {
+        id,
+      },
+    }).then(() => {
       res.json('/');
-    })
-    .catch(function(err) {
-
+      notifyDispatchChanged(id);
     });
-});
+  });
 
-router.post("/api/create-driver", function(req, res) {
-  db.Driver.create({
-    driver: req.body.name,
-    image: req.body.image
-  })
-  // pass the result of our call
-    .then(function(data) {
-    // log the result to our terminal/bash window
-      console.log(data);
+  app.post('/api/create-driver', (req, res) => {
+    db.Driver.create({
+      driver: req.body.name,
+      image: req.body.image,
+    }).then((data) => {
       // redirect
       res.json(data.id);
     });
-});
-
-module.exports = router;
+  });
+};

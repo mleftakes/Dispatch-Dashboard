@@ -1,5 +1,3 @@
-/* eslint-env node, es6 */
-
 const fs = require('fs');
 const path = require('path');
 const nanoid = require('nanoid');
@@ -36,16 +34,12 @@ function addImage(dirPath, uri, res) {
         return;
       }
 
-      res.json({ fileName: fileName });
+      res.json({ fileName });
     });
   });
 }
 
 module.exports = (app) => {
-  app.get('/cameratest', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/cameratest.html'));
-  });
-
   app.get('/bol/:name', (req, res) => {
     getImage(bolsPath, req.params.name, res);
   });

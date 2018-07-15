@@ -1,38 +1,32 @@
-var express = require("express");
-var bodyParser = require("body-parser");
+/* eslint-env node */
+
+const express = require('express');
+const http = require('http');
+const bodyParser = require('body-parser');
 
 // bring in the models
-var db = require("./models");
+const db = require('./models');
 
-var app = express();
+const app = express();
+const server = http.Server(app);
 // Serve static content for the app from the "public" directory in the application directory.
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
   extended: false,
-  limit: '50mb'
+  limit: '50mb',
 }));
 
-var exphbs = require("express-handlebars");
-
-app.engine("handlebars", exphbs({
-  defaultLayout: "main"
-}));
-app.set("view engine", "handlebars");
-
-var routes = require("./controllers/api_routes");
-
-app.use(routes);
-
+require('./controllers/api_routes.js')(app, server);
 require('./controllers/frontend_routes.js')(app);
 require('./controllers/image_routes.js')(app);
 
 // listen on port 3000
-var PORT = process.env.PORT || 3000;
-// db.sequelize.sync().then(function() {
-app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
+const PORT = process.env.PORT || 3000;
+db.sequelize.sync().then(() => {
+  server.listen(PORT, () => {
+    console.log(`App listening on PORT ${PORT}`); // eslint-disable-line no-console
+  });
 });
-// });
 

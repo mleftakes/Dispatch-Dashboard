@@ -1,7 +1,3 @@
-/* eslint-env node, es6 */
-
-const express = require("express");
-const router = express.Router();
 const path = require('path');
 
 module.exports = (app) => {
@@ -25,8 +21,12 @@ module.exports = (app) => {
     res.sendFile(path.join(__dirname, '../public/assets/js/camera.js'));
   });
 
-  app.get('/script.js', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/assets/js/script.js'));
+  app.get('/checkin.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/assets/js/checkin.js'));
+  });
+
+  app.get('/dashboard.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/assets/js/dashboard.js'));
   });
 
   app.get('/moment.js', (req, res) => {
