@@ -1,0 +1,13 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+      "prefer-destructuring": "off",
+      "no-use-before-define": ["error", { "functions": false, "classes": true }],
+      "no-plusplus": "off",
+      "radix": "off",
+      "max-len": ["error", { "code": 120 }]
+  },
+  "env": {
+      "es6": true
+  }
+}
