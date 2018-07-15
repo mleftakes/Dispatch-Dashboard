@@ -26,7 +26,7 @@ var routes = require("./controllers/api_routes");
 app.use(routes);
 
 require('./controllers/frontend_routes.js')(app);
-require('./controllers/images_controller.js')(app);
+require('./controllers/image_routes.js')(app);
 
 // listen on port 3000
 var PORT = process.env.PORT || 3000;
