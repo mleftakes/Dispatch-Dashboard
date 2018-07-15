@@ -1,0 +1,66 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Trucker Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script> -->
+  <link rel="stylesheet" type="text/css" media="screen" href="/style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Unica+One" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="/camera.js"></script>
+  <script src="https://momentjs.com/downloads/moment.min.js"></script>
+  <script src="/moment.js"></script>
+</head>
+
+<body>
+<h1 class="Center-align col s12"> CHOOSE YOUR ID </h1>
+<table class="centered highlight">
+  <thead>
+    <tr>
+      <th>Trucker Name</th>
+
+    </tr>
+  </thead>
+
+  <tbody id="truckers-tbody">
+  </tbody>
+</table>
+<script>
+  $(document).ready(() => {
+    $.ajax({
+      method: 'GET',
+      url: '/api/truckers',
+      success: (data) => {
+        const tbody = $('#truckers-tbody');
+
+        $.each(data, (_, eachTrucker) => {
+          const name = eachTrucker.name;
+
+          const td = $('<td>').text(name).attr('trucker-id', eachTrucker.id);
+          tbody.append($('<tr>').append(td));
+
+          td.click(chooseTrucker);
+        });
+      },
+      error: (err) => {
+        console.log('something went wrong: ', err);
+      }
+    })
+  });
+
+  function chooseTrucker(event) {
+    event.preventDefault();
+
+    const id = $(this).attr('trucker-id');
+
+    window.location.replace(`/checkin/${id}`);
+  }
+</script>
+</body>
