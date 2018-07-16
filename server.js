@@ -1,14 +1,3 @@
-// Solution 2: Customer Relations
-// ===========================================
-
-// Step 1: Created a Customer model in ./models/customer.js
-// Step 2: Updated the Burger model to have a hasOne(models.Customer) relation
-// Step 3: Updated the handlebars to display a customers name if there's a 'Customers' property on the Burger
-// Step 4: Updated queries in burgerController for updating a burger to add the CustomerId
-// Step 5: Updated findAll query  in burger_controller for burgers to "include" the customer
-// Step 6: Updated findAll query in burger_controller to order returned burgers by burger_name.
-
-
 var express = require("express");
 var bodyParser = require("body-parser");
 
@@ -21,7 +10,8 @@ app.use(express.static("public"));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
-  extended: false
+  extended: false,
+  limit: '50mb'
 }));
 
 var exphbs = require("express-handlebars");
@@ -31,14 +21,18 @@ app.engine("handlebars", exphbs({
 }));
 app.set("view engine", "handlebars");
 
-var routes = require("./controllers/burgers_controller");
+var routes = require("./controllers/dashboard_controller");
 
 app.use(routes);
 
+require('./controllers/routes.js')(app);
+require('./controllers/images_controller.js')(app);
+
 // listen on port 3000
 var PORT = process.env.PORT || 3000;
-db.sequelize.sync().then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
+// db.sequelize.sync().then(function() {
+app.listen(PORT, function() {
+  console.log("App listening on PORT " + PORT);
 });
+// });
+

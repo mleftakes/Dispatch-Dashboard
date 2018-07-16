@@ -5,13 +5,14 @@ USE dispatch_dashboard;
 CREATE TABLE Drivers (
   id INTEGER AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL,
-  image VARCHAR(255),
+  bol_image VARCHAR(255),
   PRIMARY KEY(id)
 );
 
 CREATE TABLE Dispatches (
   id INTEGER AUTO_INCREMENT NOT NULL,
   driver INTEGER NOT NULL,
+  is_shipper BOOLEAN NOT NULL,
   checkin DATETIME NOT NULL,
   checkout DATETIME,
   bol_image VARCHAR(255),
