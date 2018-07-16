@@ -11,6 +11,6 @@ TECHNOLOGIES
 ****NodeJS -- framework on the serverside of the project 
 ****Sequelize --npm module to create database link with the server and update it
 ****Materialize --CSS framework
-****Handlebars -- npm module that displays the dispatcher's page.
+ 
 
 #DEPLOYMENT TO HEROKU.COM
