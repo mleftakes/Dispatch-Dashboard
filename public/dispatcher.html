@@ -1,4 +1,4 @@
-<!DOCTYPE <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -13,12 +13,15 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Unica+One" rel="stylesheet">
+    <script src="main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
 </head>
 <body>
     <h1 class="Center-align col s12" > Dispatcher Dashboard </h1>
 
     <div class="container">
-            <table class="highlight">
+            <table id="dashboard" class="highlight">
                     <thead>
                       <tr>
                           <th>Trucker Name</th>
@@ -30,33 +33,11 @@
                     </thead>
             
                     <tbody>
-                      <tr>
-                        <td>DATA</td>
-                        <td>DATA</td>
-                        <td>DATA</td>
-                        <td>DATA</td>
-                        <td>DATA</td>
-                      </tr>
-                      <tr>
-                        <td>DATA</td>
-                        <td>DATA</td>
-                        <td>DATA</td>
-                        <td>DATA</td>
-                        <td>DATA</td>
-                      </tr>
-                      <tr>
-                        <td>DATA</td>
-                        <td>DATA</td>
-                        <td>DATA</td>
-                        <td>DATA</td>
-                        <td>DATA</td>
-                      </tr>
+                     
                     </tbody>
                   </table>
                         
 
-
-<!-- 
 
         <h1 class="Center-align col s12" > Welcome Truckers </h1>
         <div class="divider"></div>
@@ -103,7 +84,34 @@
 
     </div>
     
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/dashboard.js"></script>
+    
+                  <script>
+                    $.ajax({
+                  url:"/api/dispatch",
+                  method: "GET",
+                  success: (data) => {
+                    const tbody = $('#dashboard');
+                    $.each(data, (_, eachDispatch) => {
+                      const id = eachDispatch.id;
+                      const dispatch = eachDispatch.driver;
+                      console.log('dispatch is ', dispatch);
+                      console.log('typeof dispatch is ', typeof(dispatch));
+                      const checkin = eachDispatch.checkin;
+                      console.log(checkin);
+                      const checkout = eachDispatch.checkout;
+                      console.log(checkout);
+                      const td0 = $('<td>').text(id).attr('trucker-id', eachDispatch);
+                      const td1 = $('<td>').text(dispatch).attr('trucker-dis', eachDispatch);
+                      console.log(td1);
+                      const td2 = $('<td>').text(checkin).attr('trucker-chkin', eachDispatch);
+                        const td3 = $('<td>').text(checkout).attr('trucker-chkout', eachDispatch);
+                      var row = $('<tr>');
+                      row.append([td0, td1, td2, td3]);
+                      tbody.append(row);
+                    })
+                  }
+                  });
+                  </script>
+
 </body>
 </html>
