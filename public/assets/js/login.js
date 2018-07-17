@@ -42,6 +42,9 @@ function setUpModal() {
         success: (id) => {
           checkIn(id);
         },
+        error: (createErr) => {
+          console.error(createErr); // eslint-disable-line no-console
+        },
       });
     });
   });
