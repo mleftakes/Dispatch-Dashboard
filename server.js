@@ -3,11 +3,18 @@
 const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
+const enforce = require('express-sslify');
 
 // bring in the models
 const db = require('./models');
 
 const app = express();
+
+// If we're running on Heroku, enforce HTTPS
+if (process.env.JAWSDB_URL) {
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
+}
+
 const server = http.Server(app);
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static('public'));
