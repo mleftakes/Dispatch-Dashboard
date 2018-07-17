@@ -2,11 +2,11 @@ const path = require('path');
 
 module.exports = (app) => {
   app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/truckerID.html'));
+    res.sendFile(path.join(__dirname, '../public/login.html'));
   });
 
   app.get('/checkin/:id', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/trucker.html'));
+    res.sendFile(path.join(__dirname, '../public/checkin.html'));
   });
 
   app.get('/dashboard', (req, res) => {
@@ -15,6 +15,10 @@ module.exports = (app) => {
 
   app.get('/style.css', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/assets/css/style.css'));
+  });
+
+  app.get('/login.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/assets/js/login.js'));
   });
 
   app.get('/camera.js', (req, res) => {

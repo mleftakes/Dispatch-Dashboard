@@ -16,16 +16,11 @@
     crossorigin="anonymous"></script>
   <script src="/camera.js"></script>
   <script src="https://momentjs.com/downloads/moment.min.js"></script>
-  <script src="/moment.js"></script>
-  <script src="/checkin.js"></script>
+  <script src="/login.js"></script>
 </head>
 
 <body>
-
- 
-
-
-  <h1 class="Center-align col s12"> CHOOSE YOUR ID </h1>
+  <h2 class="Center-align col s12"> CHOOSE YOUR ID </h1>
 <table class="centered highlight">
   <thead>
     <tr>
@@ -48,10 +43,10 @@
 <div class="center-align section">
 
    <!-- Modal Trigger -->
-   <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Create User</a>
+   <a class="waves-effect waves-light btn modal-trigger" href="#create-modal">Create User</a>
 
    <!-- Modal Structure
-   <div id="modal1" class="modal">
+   <div id="create-modal" class="modal">
      <div class="modal-content">
        <h4>Create User</h4>
        <p>A bunch of text</p>
@@ -61,71 +56,33 @@
      </div>
    </div> -->
    
-   <div id="modal1" class="modal">
+   <div id="create-modal" class="modal">
       <div class="modal-content">
         <h4>Create A User</h4>
   
-        <div class="row">
-          <form class="col s12">
-            <div class="row modal-form-row">
-              <div class="input-field col s12">
-                <input id="image_url" type="text" class="validate">
-                <label for="image_url">Image URL</label>
-              </div>
-            </div>
+        <div class="row no-bottom-margin">
+          <form class="col s12 no-bottom-margin">
             <div class="row">
               <div class="input-field col s12">
                 <input id="image_title" type="text" class="validate">
                 <label for="image_title">Name</label>
               </div>
-            </div>       
-                        
+            </div>
+            <div class="row no-bottom-margin">
+              <div class="col s12 no-bottom-margin">
+                <label>Picture</label>
+                <br />
+                <video id="create-video" class="responsive-video no-bottom-margin"></video>
+              </div>
+            </div>
           </form>
         </div>
       </div>
       <div class="modal-footer">
-        <a class=" modal-action modal-close waves-effect waves-green btn-flat">Submit</a>
+        <a id="create-cancel" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        <a id="create-finish" class="modal-action modal-close disabled waves-effect waves-green btn-flat">Finish</a>
       </div>
     </div>
-
-
-<script>
-  $(document).ready(() => {
-    $.ajax({
-      method: 'GET',
-      url: '/api/truckers',
-      success: (data) => {
-        const tbody = $('#truckers-tbody');
-
-        $.each(data, (_, eachTrucker) => {
-          const name = eachTrucker.name;
-
-          const td = $('<td>').text(name).attr('trucker-id', eachTrucker.id);
-          tbody.append($('<tr>').append(td));
-
-          td.click(chooseTrucker);
-        });
-      },
-      error: (err) => {
-        console.log('something went wrong: ', err);
-      }
-    
-    })
-  
-  
-  });
-
-  function chooseTrucker(event) {
-    event.preventDefault();
-
-    const id = $(this).attr('trucker-id');
-
-    window.location.replace(`/checkin/${id}`);
-  }
-
-
-  </script>
-
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
 </body>

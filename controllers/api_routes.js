@@ -91,7 +91,7 @@ module.exports = (app, http) => {
 
   app.post('/api/create-driver', (req, res) => {
     db.Driver.create({
-      driver: req.body.name,
+      name: req.body.name,
       image: req.body.image,
     }).then((data) => {
       // redirect

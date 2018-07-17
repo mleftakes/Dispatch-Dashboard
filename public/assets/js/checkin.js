@@ -26,6 +26,7 @@ $(document).ready(() => {
 
   $('#checkout-div').hide();
   $('#picture-div').hide();
+  $('#completed-bol-div').hide();
 
   // Populate driver name
   $.ajax({
@@ -89,7 +90,6 @@ $(document).ready(() => {
   });
 
   $('.modal-trigger').leanModal({
-    dismissable: true,
     ready: () => {
       startVideo($('#camera')[0], false, (err) => {
         if (err) {
@@ -119,11 +119,10 @@ $(document).ready(() => {
           filename,
         },
         success: () => {
-          const img = $('<img>').attr('src', `/bol/${filename}`);
-          img.addClass('bol-image');
-
           $('#takePicture').hide();
-          $('#picture-div').append(img);
+          $('#picture-div').hide();
+          $('#completed-bol-div').show();
+          $('#completed-bol').attr('src', `/bol/${filename}`);
         },
       });
     });
