@@ -45,7 +45,7 @@ module.exports = (app) => {
   });
 
   app.get('/user-image/:name', (req, res) => {
-    getImage(bolsPath, req.params.name, res);
+    getImage(userImagesPath, req.params.name, res);
   });
 
   app.post('/add-bol', (req, res) => {

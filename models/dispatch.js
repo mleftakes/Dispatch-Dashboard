@@ -1,28 +1,30 @@
+/* eslint-env node, es6 */
+
 // Dispatch models
 
 // The Dispatch has a name attribute of type DataTypes.String
 // Checkin and Checkout are type date
 
-module.exports = function(sequelize, DataTypes) {
-  var Dispatch = sequelize.define("Dispatch", {
+module.exports = (sequelize, DataTypes) => {
+  const Dispatch = sequelize.define('Dispatch', {
     checkin: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
-    checkout:{
+    checkout: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: true,
     },
     is_shipper: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: false,
     },
-    bol_image:{
+    bol_image: {
       type: DataTypes.STRING,
-    }
+    },
   });
 
-  Dispatch.associate = function(db) {
+  Dispatch.associate = (db) => {
     db.Driver.hasMany(db.Dispatch, { foreignKey: 'driver' });
     db.Dispatch.belongsTo(db.Driver, { foreignKey: 'driver' });
   };
