@@ -25,6 +25,10 @@ module.exports = (app, http) => {
     });
   });
 
+  app.get('/api/get-dispatch/:id', (req, res) => {
+    db.Dispatch.findById(req.params.id).then(dispatch => res.json(dispatch));
+  });
+
   app.get('/api/truckers', (req, res) => {
     // replace old function with sequelize function
     db.Driver.findAll({
@@ -58,9 +62,31 @@ module.exports = (app, http) => {
         id,
       },
     }).then(() => {
-      res.json('/');
+      db.Dispatch.findById(id).then((dispatch) => {
+        res.json(dispatch);
+        notifyDispatchChanged(id);
+      });
+    });
+  });
+
+  app.put('/api/set-bol', (req, res) => {
+    const id = req.body.dispatch_id;
+    const filename = req.body.filename;
+
+    db.Dispatch.update({
+      bol_image: filename,
+    }, {
+      where: {
+        id,
+      },
+    }).then(() => {
+      res.json('Updated');
       notifyDispatchChanged(id);
     });
+  });
+
+  app.get('/api/get-driver/:id', (req, res) => {
+    db.Driver.findById(req.params.id).then(driver => res.json(driver));
   });
 
   app.post('/api/create-driver', (req, res) => {
