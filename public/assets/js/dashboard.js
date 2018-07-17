@@ -24,7 +24,7 @@ function reloadTable() {
         const chkoutTD = $('<td>').text(checkout);
         const row = $('<tr>').attr('trucker-id', eachDispatch);
 
-        nameTD.prepend($('<img>').attr('alt', 'dispatchDriverName').attr('src', imageURL).addClass('userImage'));
+        nameTD.prepend($('<img>').attr('alt', dispatchDriverName).attr('src', imageURL).addClass('userImage'));
 
         // Time calculated==================
         const checkinConverted = moment(checkin);
