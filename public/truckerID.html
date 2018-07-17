@@ -17,10 +17,15 @@
   <script src="/camera.js"></script>
   <script src="https://momentjs.com/downloads/moment.min.js"></script>
   <script src="/moment.js"></script>
+  <script src="/checkin.js"></script>
 </head>
 
 <body>
-<h1 class="Center-align col s12"> CHOOSE YOUR ID </h1>
+
+ 
+
+
+  <h1 class="Center-align col s12"> CHOOSE YOUR ID </h1>
 <table class="centered highlight">
   <thead>
     <tr>
@@ -31,7 +36,59 @@
 
   <tbody id="truckers-tbody">
   </tbody>
+
+  <div class="divider"></div>
+  <div class="center-align section">
+
+  
+    
+
 </table>
+
+<div class="center-align section">
+
+   <!-- Modal Trigger -->
+   <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Create User</a>
+
+   <!-- Modal Structure
+   <div id="modal1" class="modal">
+     <div class="modal-content">
+       <h4>Create User</h4>
+       <p>A bunch of text</p>
+     </div>
+     <div class="modal-footer">
+       <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+     </div>
+   </div> -->
+   
+   <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Create A User</h4>
+  
+        <div class="row">
+          <form class="col s12">
+            <div class="row modal-form-row">
+              <div class="input-field col s12">
+                <input id="image_url" type="text" class="validate">
+                <label for="image_url">Image URL</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="image_title" type="text" class="validate">
+                <label for="image_title">Name</label>
+              </div>
+            </div>       
+                        
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a class=" modal-action modal-close waves-effect waves-green btn-flat">Submit</a>
+      </div>
+    </div>
+
+
 <script>
   $(document).ready(() => {
     $.ajax({
@@ -52,7 +109,10 @@
       error: (err) => {
         console.log('something went wrong: ', err);
       }
+    
     })
+  
+  
   });
 
   function chooseTrucker(event) {
@@ -62,5 +122,10 @@
 
     window.location.replace(`/checkin/${id}`);
   }
-</script>
+
+
+  </script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
 </body>
