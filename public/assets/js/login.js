@@ -59,8 +59,15 @@ $(document).ready(() => {
 
       $.each(data, (_, eachTrucker) => {
         const name = eachTrucker.name;
+        const driverImage = eachTrucker.image;
 
-        const td = $('<td>').text(name).attr('trucker-id', eachTrucker.id);
+        const td = $('<td>').text(name).attr('trucker-id', eachTrucker.id).addClass('nameTD');
+
+        if (driverImage) {
+          const imageURL = `/user-image/${driverImage}`;
+          td.prepend($('<img>').attr('alt', name).attr('src', imageURL).addClass('userImage'));
+        }
+
         tbody.append($('<tr>').append(td));
 
         td.click(chooseTrucker);
