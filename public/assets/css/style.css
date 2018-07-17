@@ -61,6 +61,16 @@ video {
 
 #dashboard {
     background-color: rgba(200, 200, 200, 0.753);
+}
 
+.nameTD {
+    vertical-align: middle;
+}
 
+.userImage {
+    vertical-align: middle;
+    margin-right: 8px;
+    max-height: 2em;
+    max-width: 6em;
+    opacity: 1;
 }

@@ -1,5 +1,5 @@
 /* eslint-env browser, jquery */
-/* global io */
+/* global moment, io */
 
 function reloadTable() {
   $.ajax({
@@ -12,31 +12,37 @@ function reloadTable() {
 
       $.each(data, (_, eachDispatch) => {
         const id = eachDispatch.id;
-        const dispatch = eachDispatch.driver;
         const dispatchDriverName = eachDispatch.Driver.name;
-        console.log(dispatchDriverName);
-        console.log(eachDispatch.Driver.name);
-        console.log('dispatch is ', dispatch);
-        console.log('typeof dispatch is ', typeof (dispatch));
+        const driverImage = eachDispatch.Driver.image;
+        const imageURL = `/user-image/${driverImage}`;
+
         const checkin = eachDispatch.checkin;
-        console.log(checkin);
         const checkout = eachDispatch.checkout;
-        console.log(checkout);
-        const td0 = $('<td>').text(id).attr('trucker-id', eachDispatch);
-        const td1 = $('<td>').text(dispatchDriverName).attr('trucker-dis', eachDispatch);
-        console.log(td1);
-        const td2 = $('<td>').text(checkin).attr('trucker-chkin', eachDispatch);
-        const td3 = $('<td>').text(checkout).attr('trucker-chkout', eachDispatch);
-        const row = $('<tr>');
+        const idTD = $('<td>').text(id);
+        const nameTD = $('<td>').text(dispatchDriverName).addClass('nameTD');
+        const chkinTD = $('<td>').text(checkin);
+        const chkoutTD = $('<td>').text(checkout);
+        const row = $('<tr>').attr('trucker-id', eachDispatch);
+
+        nameTD.prepend($('<img>').attr('alt', 'dispatchDriverName').attr('src', imageURL).addClass('userImage'));
+
         // Time calculated==================
         const checkinConverted = moment(checkin);
-        console.log(checkinConverted);
         const timeSinceCI = moment().diff(moment(checkinConverted, 'x'), 'minutes');// added 7/16/18 at 3:54 pm
-        console.log('Checkin time stored in const checkin: ', checkin);
-        const td4 = $('<td>').text(timeSinceCI).attr('trucker-timeSpent', eachDispatch); // added 7/16/18 at 3:54 pm
-        console.log('Time timeSinceCI ', timeSinceCI);
+        const timeTD = $('<td>').text(timeSinceCI).attr('trucker-timeSpent', eachDispatch); // added 7/16/18 at 3:54 pm
         //= =================================
-        row.append([td1, td0, td2, td3, td4]);
+        row.append([nameTD, idTD, chkinTD, chkoutTD, timeTD]);
+
+        const bol = eachDispatch.bol_image;
+        if (bol) {
+          const bolURL = `/bol/${bol}`;
+          const buttonClasses = 'center-align waves-effect waves-light btn-small';
+          const bolButton = $('<a>').attr('class', buttonClasses).attr('href', bolURL).text('View');
+          bolButton.attr('target', '_blank');
+
+          row.append($('<td>').append(bolButton));
+        }
+
         tbody.append(row);
       });
     },
@@ -44,8 +50,8 @@ function reloadTable() {
 }
 
 const socket = io();
-console.log('we getting here?');
-socket.on('dispatchChanged', (id) => {
+
+socket.on('dispatchChanged', () => {
   reloadTable();
 });
 
