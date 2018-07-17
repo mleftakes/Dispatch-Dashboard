@@ -6,26 +6,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Trucker Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
-  <!-- Compiled and minified JavaScript -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script> -->
   <link rel="stylesheet" type="text/css" media="screen" href="/style.css" />
   <link href="https://fonts.googleapis.com/css?family=Unica+One" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   <script src="/camera.js"></script>
   <script src="https://momentjs.com/downloads/moment.min.js"></script>
-  <script src="/moment.js"></script>
   <script src="/checkin.js"></script>
 </head>
 
-
 <body>
   <div class="container">
-
-
-    <h1 class="Center-align col s12"> Welcome Truckers </h1>
+    <h1 class="Center-align col s12"> Welcome <span id="driver-name">Truckers</span></h1>
     <div class="divider"></div>
 
     <div class="row">
@@ -50,38 +43,25 @@
         </div>
       </div>
 
-
-          </tr>
-        </tbody>
-      </table>
-
-
-
-
-
-      <div class="center-align section">
-        <!-- <div id="clock" class="clock">loading ...</div> -->
-        <h2 class="clock Center-align col s12">loading...</h2>
+      <div id="checkin-div" class="center-align section">
+        <h2 id="checkin-clock" class="clock Center-align col s12">loading...</h2>
         <p class="Center-align col s12">
           <a id="checkIn" class="center-align waves-effect waves-light btn-large" href="">CHECK IN</a>
         </p>
       </div>
 
-
-
       <div class="divider"></div>
-      <div class="center-align section">
-        <h2 class="clock Center-align col s12">loading...</h2>
+      <div id="checkout-div" class="center-align section">
+        <h2 id="checkout-clock" class="clock Center-align col s12">loading...</h2>
         <p id="center-align col s12">
           <a type="submit" id="checkOut"class="center-align waves-effect waves-light btn-large">CHECK OUT</a>
         </p>
       </div>
 
       <div class="divider"></div>
-      <div class="center-align section">
-        <h2 class="Center-align col s12">BOL Picture</h2>
+      <div id="picture-div" class="center-align section">
         <p id="col s12">
-          <a class="waves-effect waves-light btn-large modal-trigger" href="#modal1">TAKE PICTURE</a>
+          <a id="takePicture" class="waves-effect waves-light btn-large modal-trigger" href="#modal1">TAKE BOL PICTURE</a>
 
           <!-- Modal Structure -->
           <div id="modal1" class="modal">
@@ -93,46 +73,19 @@
                   <div class="row modal-form-row">
                     <div class="input-field col s12">
                       <input id="image_url" type="text" class="validate">
-                      <!-- <label for="image_url">Image URL</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="image_title" type="text" class="validate">
-                <label for="image_title">Title</label>
-              </div>
-            </div>        -->
-                      <!-- <div class="row">
-              <div class="input-field col s12">
-                <textarea id="image_description" type="text" class="materialize-textarea validate"></textarea>
-                <label for="image_description">Description</label>
-              </div>
-            </div>             
-          </form> -->
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <a class=" modal-action waves-effect waves-green btn-flat" id="takePictureBtn">Take Picture</a>
-                    <a class=" modal-action modal-close waves-effect waves-green btn-flat">Submit</a>
+                    <a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+                    <a class=" modal-action waves-effect waves-green btn-flat modal-close" id="takePictureBtn">Take Picture</a>
                   </div>
               </div>
-
-              <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
-              <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+            </div>
+          </div>
+        </p>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 </body>
-
-</p>
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-</body>
-
 </html>

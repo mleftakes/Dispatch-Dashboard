@@ -29,10 +29,6 @@ module.exports = (app) => {
     res.sendFile(path.join(__dirname, '../public/assets/js/dashboard.js'));
   });
 
-  app.get('/moment.js', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/assets/js/moment.js'));
-  });
-
   app.get('/bg.jpg', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/assets/images/bg.jpg'));
   });

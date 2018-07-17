@@ -1,46 +1,91 @@
 /* eslint-env browser, jquery */
-/* global startVideo, stopVideo, takePicture */
+/* global moment, startVideo, stopVideo, takePicture */
+
+let dispatchID;
+
+function formatMoment(m) {
+  return m.format('D. MMMM H:mm:ss');
+}
+
+function update() {
+  $('.clock').html(formatMoment(moment()));
+}
+
+function setClockToFixed(clock, prefix, fixed) {
+  clock.removeClass('clock');
+  clock.text(`${prefix}${formatMoment(moment(fixed))}`);
+}
+
+setInterval(update, 1000);
 
 $(document).ready(() => {
+  const path = window.location.pathname;
+  const prefix = '/checkin/';
+
+  const driverID = path.slice(prefix.length);
+
+  $('#checkout-div').hide();
+  $('#picture-div').hide();
+
+  // Populate driver name
+  $.ajax({
+    method: 'GET',
+    url: `/api/get-driver/${driverID}`,
+    success: (driver) => {
+      if (driver && driver.name) {
+        $('#driver-name').text(driver.name);
+      }
+    },
+  });
+
   $('#checkIn').click((event) => {
     event.preventDefault();
-
-    const path = window.location.pathname;
-    const prefix = '/checkin/';
 
     if (!path.startsWith(prefix)) {
       console.log('Invalid path'); // eslint-disable-line no-console
       return;
     }
 
-    const id = path.slice(prefix.length);
-
     $.ajax({
       method: 'POST',
       url: '/api/checkin',
       data: {
-        driver_id: id,
+        driver_id: driverID,
         is_shipper: true,
       },
-    }).then((data) => {
-      console.log(data);
+    }).then((id) => {
+      dispatchID = id;
+
+      $.ajax({
+        method: 'GET',
+        url: `/api/get-dispatch/${dispatchID}`,
+        success: (dispatch) => {
+          setClockToFixed($('#checkin-clock'), 'Check In: ', dispatch.checkin);
+        },
+      });
+
+      $('#checkIn').hide();
+      $('#checkout-div').show();
     }).catch((err) => {
       console.log('something went wrong: ', err); // eslint-disable-line no-console
     });
   });
 
-  $('#checkOut').on('submit', (event) => {
+  $('#checkOut').click((event) => {
     event.preventDefault();
 
     $.ajax({
       method: 'PUT',
       url: '/api/checkout',
       data: {
-        driver_id: (window.location.href).split('/')[3],
+        dispatch_id: dispatchID,
       },
-    }).then((data) => {
-      window.location.reload();
+    }).then((dispatch) => {
+      setClockToFixed($('#checkout-clock'), 'Check Out: ', dispatch.checkout);
     });
+
+    $('#checkOut').hide();
+    $('#picture-div').show();
   });
 
   $('.modal-trigger').leanModal({
@@ -66,7 +111,21 @@ $(document).ready(() => {
         return;
       }
 
-      console.log(filename);
+      $.ajax({
+        method: 'PUT',
+        url: '/api/set-bol',
+        data: {
+          dispatch_id: dispatchID,
+          filename,
+        },
+        success: () => {
+          const img = $('<img>').attr('src', `/bol/${filename}`);
+          img.addClass('bol-image');
+
+          $('#takePicture').hide();
+          $('#picture-div').append(img);
+        },
+      });
     });
   });
 });
